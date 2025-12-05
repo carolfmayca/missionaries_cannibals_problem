@@ -1,4 +1,7 @@
-from core import MOVES, estado_seguro
+try:
+    from .core import MOVES, estado_seguro
+except ImportError:
+    from core import MOVES, estado_seguro
 
 def aplicar_movimento_validando(estado, movimento):
     """
@@ -12,14 +15,15 @@ def aplicar_movimento_validando(estado, movimento):
     Me, Ce, Md, Cd, B = estado
     dm, dc = movimento
 
-    # 1) Movimento precisa ser um dos operadores permitidos
-    if (dm, dc) not in MOVES:
-        return False, estado, f"Movimento {movimento} não é permitido."
-
+    # 1) Verifica se barco não está vazio primeiro
     if dm == 0 and dc == 0:
         return False, estado, "Barco não pode mover vazio."
 
-    # 2) Aplica o movimento dependendo de onde está o barco
+    # 2) Movimento precisa ser um dos operadores permitidos
+    if (dm, dc) not in MOVES:
+        return False, estado, f"Movimento {movimento} não é permitido."
+
+    # 3) Aplica o movimento dependendo de onde está o barco
     if B == 'E':
         # barco sai da esquerda para a direita
         if Me < dm or Ce < dc:

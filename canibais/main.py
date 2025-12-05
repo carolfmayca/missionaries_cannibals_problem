@@ -1,7 +1,10 @@
-# canibais/cli.py
 import sys
-from core import bfs_missionarios_canibais
-from validator import extrair_movimentos, verificar_sequencia
+try:
+    from .core import bfs_missionarios_canibais
+    from .validator import extrair_movimentos, verificar_sequencia
+except ImportError:
+    from core import bfs_missionarios_canibais
+    from validator import extrair_movimentos, verificar_sequencia
 
 
 def carregar_caminho_de_arquivo(caminho_arquivo):
